@@ -37,4 +37,6 @@ public interface DeliveryChargeCalculator {
         System.out.println("배송비 무료");
         return originPrice;
     }
+
+    public void print();
 }
