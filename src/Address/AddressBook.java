@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class AddressBook {
     static List<Contact> contacts;
+
     public AddressBook() {
         contacts = new ArrayList<>();
     }
 
     public static void main(String[] args) {
-        AddressBook addressBook = new AddressBook();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("1. 비즈니스 연락처 추가");
@@ -24,17 +24,16 @@ public class AddressBook {
 
             switch (number) {
                 case 1:
-                    contacts.add(businessContactPlus());
-
+                    contacts.add(addBusinessContact());
                     break;
                 case 2:
-                    contacts.add(personalContactPlus());
+                    contacts.add(addPersonalContact());
                     break;
                 case 3:
-                    print();
+                    printAllContacts();
                     break;
                 case 4:
-                    search();
+                    searchContact();
                     break;
                 case 5:
                     System.out.println("프로그램을 종료합니다.");
@@ -47,51 +46,54 @@ public class AddressBook {
 
     }
 
-    private static BusinessContact businessContactPlus(){
+    private static BusinessContact addBusinessContact() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("이름을 입력하세요");
+        System.out.print("이름을 입력하세요: ");
         String name = scanner.nextLine();
-        System.out.print("전화번호를 입력하세요");
+        System.out.print("전화번호를 입력하세요: ");
         String phoneNumber = scanner.nextLine();
-        System.out.print("회사명을 입력하세요");
+        System.out.print("회사명을 입력하세요: ");
         String company = scanner.nextLine();
-        return new BusinessContact(name,phoneNumber,company);
+        return new BusinessContact(name, phoneNumber, company);
     }
 
-    private static PersonalContact personalContactPlus(){
+    private static PersonalContact addPersonalContact() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("이름을 입력하세요");
+        System.out.print("이름을 입력하세요: ");
         String name = scanner.nextLine();
-        System.out.print("전화번호를 입력하세요");
+        System.out.print("전화번호를 입력하세요: ");
         String phoneNumber = scanner.nextLine();
-        System.out.print("관계를 입력하세요");
+        System.out.print("관계를 입력하세요: ");
         String company = scanner.nextLine();
-        return new PersonalContact(name,phoneNumber,company);
+        return new PersonalContact(name, phoneNumber, company);
     }
 
-    private static void print(){
-        if(contacts.isEmpty()) {
-            System.out.println("연락처가 비어있습니다");
+    private static void printAllContacts() {
+        if (contacts.isEmpty()) {
+            System.out.println("연락처가 비어있습니다.");
         } else {
             System.out.println("연락처 목록: ");
             for (Contact contact : contacts) {
                 System.out.println(contact);
             }
         }
-
     }
-    private static void search(){
+
+    private static void searchContact() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("검색할 이름을 입력하세요");
         String searchName = scanner.nextLine();
+        Contact searchContact = null;
+        System.out.print("검색할 이름을 입력하세요: ");
         for (Contact contact : contacts) {
-            if(contact.getName().equalsIgnoreCase(searchName)){
-                System.out.println(contact);
+            if (contact.getName().equalsIgnoreCase(searchName)) {
+                searchContact = contact;
                 break;
-            } else {
-                System.out.println("연락처를 찾을 수 없습니다.");
             }
         }
-
+        if (searchContact == null){
+            System.out.println("연락처를 찾을 수 없습니다.");
+        } else {
+            System.out.println(searchContact);
+        }
     }
 }
